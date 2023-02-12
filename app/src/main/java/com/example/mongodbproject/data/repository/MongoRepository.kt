@@ -1,12 +1,10 @@
-package com.example.mongodbproject.di
+package com.example.mongodbproject.data.repository
 
 import com.example.mongodbproject.data.model.Person
-import com.example.mongodbproject.data.repository.Repository
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.mongodb.kbson.ObjectId
 
 class MongoRepository(private val realm: Realm) : Repository {
 
@@ -41,10 +39,10 @@ class MongoRepository(private val realm: Realm) : Repository {
         }
     }
 
-    override suspend fun deletePerson(id: ObjectId) {
+    override suspend fun deletePerson(name: String) {
         realm.write {
             val queriedPerson = realm.query<Person>(
-                query = "id == $0", id
+                query = "name == $0", name
             ).first().find()
 
             try {

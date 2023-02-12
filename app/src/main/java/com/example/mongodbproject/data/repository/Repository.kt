@@ -10,5 +10,5 @@ interface Repository {
 
     suspend fun insertPerson(person: Person)
     suspend fun updatePerson(person: Person)
-    suspend fun deletePerson(id: ObjectId)
+    suspend fun deletePerson(name: String)
 }

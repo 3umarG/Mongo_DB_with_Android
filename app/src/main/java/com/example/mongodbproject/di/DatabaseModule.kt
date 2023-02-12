@@ -3,6 +3,7 @@ package com.example.mongodbproject.di
 import com.example.mongodbproject.data.model.Address
 import com.example.mongodbproject.data.model.Person
 import com.example.mongodbproject.data.model.Pets
+import com.example.mongodbproject.data.repository.MongoRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,7 +32,7 @@ object DatabaseModule {
     // Provide My Repository
     @Provides
     @Singleton
-    fun provideMongoRepository(realm: Realm) : MongoRepository{
+    fun provideMongoRepository(realm: Realm) : MongoRepository {
         return MongoRepository(realm)
     }
 
