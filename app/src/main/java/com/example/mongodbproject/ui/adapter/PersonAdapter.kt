@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mongodbproject.data.model.Person
 import com.example.mongodbproject.databinding.PersonItemLayoutBinding
 
-class PersonAdapter(private val data: List<Person>) :
+class PersonAdapter(
+    private val data: List<Person>,
+    private val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<PersonAdapter.PersonViewHolder>() {
 
     class PersonViewHolder(private val binding: PersonItemLayoutBinding) :
@@ -39,5 +42,13 @@ class PersonAdapter(private val data: List<Person>) :
 
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
         holder.bind(data[position])
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(data[position])
+        }
+
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(person: Person)
     }
 }

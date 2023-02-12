@@ -1,10 +1,12 @@
 package com.example.mongodbproject.data.repository
 
+import android.util.Log
 import com.example.mongodbproject.data.model.Person
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.mongodb.kbson.ObjectId
 
 class MongoRepository(private val realm: Realm) : Repository {
 
@@ -30,29 +32,19 @@ class MongoRepository(private val realm: Realm) : Repository {
 
     override suspend fun updatePerson(person: Person) {
         realm.write {
-            val queriedPerson = realm.query<Person>(
-                query = "id == $0", person.id
-            ).first()
-                .find()
-
+            val queriedPerson = query<Person>(query = "id == $0", person.id).first().find()
             queriedPerson?.name = person.name
         }
     }
 
-    override suspend fun deletePerson(name: String) {
+    override suspend fun deletePerson(id: ObjectId) {
         realm.write {
-            val queriedPerson = realm.query<Person>(
-                query = "name == $0", name
-            ).first().find()
-
+            val person = query<Person>(query = "id == $0", id).first().find()
             try {
-                queriedPerson?.let {
-                    delete(it)
-                }
-            } catch (ex: Exception) {
-                println("MONGODB REPOSITORY :: ${ex.message}")
+                person?.let { delete(it) }
+            } catch (e: Exception) {
+                Log.d("MongoRepositoryImpl", "${e.message}")
             }
         }
     }
-
 }

@@ -24,7 +24,7 @@ class MongodbViewModel @Inject constructor(
         getData()
     }
 
-    private fun getData() {
+     fun getData() {
         viewModelScope.launch {
             repo.getData().collect {
                 mutableData.value = it
@@ -44,26 +44,26 @@ class MongodbViewModel @Inject constructor(
     }
 
 
-    fun updatePerson(id: String, name: String) {
+    fun updatePerson(id: ObjectId, name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            (name.isNotEmpty() && id.isNotEmpty()).let {
+            (name.isNotEmpty() && id.toHexString().isNotEmpty()).let {
                 val person = Person().apply {
-                    this.id = ObjectId(hexString = id)
+                    this.id = id
                     this.name = name
                 }
                 repo.updatePerson(person)
             }
-            getData()
+//            getData()
         }
     }
 
 
-    fun deletePerson(name: String) {
+    fun deletePerson(id: ObjectId) {
         viewModelScope.launch(Dispatchers.IO) {
-            name.isNotEmpty().let {
-                repo.deletePerson(name)
+            id.toHexString().isNotEmpty().let {
+                repo.deletePerson(id)
             }
-            getData()
+//            getData()
         }
     }
 

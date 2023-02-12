@@ -37,7 +37,6 @@ class Person : RealmObject {
     // One - to - Many Relation
     // Person - to Many Pets
     var pets: RealmList<Pets> = realmListOf()
-    var timestamp : RealmInstant = RealmInstant.now()
 
 }
 

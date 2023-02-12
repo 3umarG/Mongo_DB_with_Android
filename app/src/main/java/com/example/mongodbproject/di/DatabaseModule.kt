@@ -23,8 +23,9 @@ object DatabaseModule {
         val config = RealmConfiguration.Builder(
             schema = setOf(
                 Person::class, Address::class, Pets::class
-            )
+            ),
         ).compactOnLaunch()
+            .schemaVersion(2)
             .build()
         return Realm.open(config)
     }
