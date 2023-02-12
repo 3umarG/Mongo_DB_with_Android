@@ -9,45 +9,45 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
-    private val viewModel : MongodbViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: MongodbViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.btnAdd.setOnClickListener {
-            addPerson()
+            addPerson(binding.etName.text.toString())
         }
 
         binding.btnDelete.setOnClickListener {
-            deletePerson()
+            deletePerson(binding.etName.text.toString())
         }
 
         binding.btnFilter.setOnClickListener {
-            filterPerson()
+            filterPerson(binding.etName.text.toString())
         }
 
         binding.btnUpdate.setOnClickListener {
-            updatePerson()
+            updatePerson(binding.etId.text.toString() , binding.etName.text.toString())
         }
 
 
     }
 
-    private fun updatePerson() {
+    private fun updatePerson(id : String , name : String) {
 
     }
 
-    private fun filterPerson() {
+    private fun filterPerson(name: String) {
 
     }
 
-    private fun deletePerson() {
+    private fun deletePerson(name: String) {
 
     }
 
-    private fun addPerson() {
+    private fun addPerson(name: String) {
 
     }
 }
