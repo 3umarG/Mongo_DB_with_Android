@@ -1,4 +1,4 @@
-package com.example.mongodbproject
+package com.example.mongodbproject.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
